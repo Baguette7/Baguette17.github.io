@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href='http://cdn.webfont.youziku.com/webfonts/nomal/103334/46758/592c21f3f629d81a6c87d1db.css' rel='stylesheet' type='text/css' />
+<title>javascript 实现计算器</title>
+<style type="text/css">
+.calculator{width:268px;height:350px;margin:0 auto;background:#AAAAAA;}
+.cal-in{margin-left:10px}
+.cal-bt1{width: 22%;height:50px;margin-left: 1px;margin-top: 5px;font-family:'HelveticaNeueaf98de5a2193a6';font-size: 20px;font-weight: bold;}
+.cal-bv{width:94%;margin-left: 2px;margin-top: 5px;height: 50px;font-family:'HelveticaNeueaf98de5a2193a6';font-size: 20px;font-weight: bold;}
+.cal-txt{height: 40px;width: 90%;margin-top: 10px;margin-left: 10px;font-family:'HelveticaNeueaf98de5a2193a6';font-size: 18px;font-weight: bold;}
+</style>
+<script>
+var calnum=document.getElementsByClassName("cal-bt1");
+var myNums=new Array();
+var ind;
+var sh;
+function getNum(tnum){
+	document.getElementById("caltxt").value=tnum;
+	myNums.push(tnum);
+	document.getElementById("caltxt").value=myNums.join("");
+	
+	}
+
+function getClear(c){
+	myNums=[];
+	document.getElementById("caltxt").value="";
+}
+
+	
+function getOpera(op){
+	sh=op;
+	myNums.push(op);
+	ind=myNums.toString().indexOf(op);
+	ind=ind/2;
+	}
+
+
+function getResult(){
+	var a=myNums.toString().substring(0,ind*2);
+	var b=myNums.toString().substring(ind*2+1);
+	var pre=Number(a.replace(/[^\d.]/g,''));
+	var next=Number(b.replace(/[^\d.]/g,''));
+	var last=0;
+
+	switch(sh){
+		case '-':last=pre-next;break;
+		case '+':last=pre+next;break;
+		case '/':last=pre/next;break;
+		case '%':last=pre%next;break;
+		default:
+		last=wrong;
+	}
+	document.getElementById("caltxt").value=last;
+}
+
+</script>
+</head>
+<body>
+
+<div class="calculator">
+<input type="text" class="cal-txt" id="caltxt"/>
+
+<div class="cal-in">
+<input type="button" value="7"  class="cal-bt1" onClick="getNum(this.value)" style="margin-top:12px"/>
+<input type="button" value="8"  class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="9"  class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="+"  class="cal-bt1" onClick="getOpera(this.value)"/>
+
+<input type="button" value="4" class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="5" class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="6" class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="-" class="cal-bt1" onClick="getOpera(this.value)"/>
+
+<input type="button" value="1" class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="2" class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="3" class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="/" class="cal-bt1" onClick="getOpera(this.value)"/>
+
+<input type="button" value="%" class="cal-bt1" onClick="getOpera(this.value)"/>
+<input type="button" value="0" class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="." class="cal-bt1" onClick="getNum(this.value)"/>
+<input type="button" value="C" class="cal-bt1" onClick="getClear(this.value)"/>
+
+<input type="button" value="=" class="cal-bv" onClick="getResult()" />
+</div>
+</div>
+</body>
+</html>
